@@ -59,6 +59,7 @@ To compile the book, the following packages are required.
 * texlive-core (for latexmk and xelatex)
 * texlive-latexextra (for bibtex and makeglossaries)
 * texlive-bibtexextra (for additional BibTeX styles and bibliography databases)
+* texlive-science (for SympyTeX)
 * biber (for generating bibliography)
 * python (for generating plots)
 * python-pip (for installing required Python packages)
@@ -73,6 +74,7 @@ To compile the book, the following packages are required.
 * texlive-latex-extra (for bibtex and makeglossaries)
 * texlive-generic-extra (for miscellaneous LaTeX .sty files)
 * texlive-bibtex-extra (for additional BibTeX styles and bibliography databases)
+* texlive-science (for SympyTeX)
 * xelatex (for setting and using custom fonts)
 * biber (for generating bibliography)
 * python3 (for generating plots)
@@ -86,6 +88,7 @@ These are installed via pip3 (e.g., `pip3 install --user frccontrol`).
 
 * frccontrol (to provide FRC wrappers for Python Control and generate plots and
   state-space results)
+* sympy (to generate algebraic results)
 
 The following are optional because the book can compile without them.
 
