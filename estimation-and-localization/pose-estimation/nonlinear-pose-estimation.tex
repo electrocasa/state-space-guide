@@ -38,10 +38,37 @@ a column vector are called a "twist".
 In the robot frame
 
 \begin{align*}
-  \crdfrm{R}{dx} &= \crdfrm{R}{v_x} \,dt \\
-  \crdfrm{R}{dy} &= \crdfrm{R}{v_y} \,dt \\
-  \crdfrm{R}{d\theta} &= \crdfrm{R}{\omega} \,dt
+  \crdfrm{R}{dx} &= \crdfrm{R}{v_x}(t) \,dt \\
+  \crdfrm{R}{dy} &= \crdfrm{R}{v_y}(t) \,dt \\
+  \crdfrm{R}{d\theta} &= \crdfrm{R}{\omega}(t) \,dt \\
+  \crdfrm{R}{dv_x} &= \crdfrm{R}{a_x} \,dt \\
+  \crdfrm{R}{dv_y} &= \crdfrm{R}{a_y} \,dt \\
+  \crdfrm{R}{d\omega} &= \crdfrm{R}{\alpha} \,dt
 \end{align*}
+
+First, solve for $\crdfrm{R}{v_x}(t)$, $\crdfrm{R}{v_y}(t)$, and
+$\crdfrm{R}{\omega}(t)$ assuming a starting orientation of $\theta = 0$.
+
+\begin{align*}
+  \crdfrm{R}{v_x}(t) &= \crdfrm{R}{a_x} t + v_x(0) \\
+  \crdfrm{R}{v_y}(t) &= \crdfrm{R}{a_y} t + v_y(0) \\
+  \crdfrm{R}{\omega}(t) &= \alpha t + \omega(0) \\
+  \crdfrm{R}{\theta}(t) &= \frac{1}{2}\alpha t^2 + \omega(0)t
+\end{align*}
+
+%For a differential drive robot,
+%
+%\begin{align*}
+%  \crdfrm{R}{v_x(t)} &= \frac{\crdfrm{R}{v_l(t)} + \crdfrm{R}{v_r(t)}}{2} =
+%    \frac{1}{2}\crdfrm{R}{v_l(t)} + \frac{1}{2}\crdfrm{R}{v_r(t)} \\
+%  \crdfrm{R}{v_y(t)} &= 0 \\
+%  \crdfrm{R}{\omega(t)} &= \frac{\crdfrm{R}{v_r(t)} -
+%    \crdfrm{R}{v_l(t)}}{2r_b} = \frac{1}{2r_b}\crdfrm{R}{v_r(t)} -
+%    \frac{1}{2r_b}\crdfrm{R}{v_l(t)} \\
+%  \crdfrm{R}{\alpha(t)} &= \frac{\crdfrm{R}{a_r(t)} -
+%    \crdfrm{R}{a_l(t)}}{2r_b} = \frac{1}{2r_b}\crdfrm{R}{a_r(t)} -
+%    \frac{1}{2r_b}\crdfrm{R}{a_l(t)}
+%\end{align*}
 
 To transform this into the global frame, we apply a counterclockwise rotation
 matrix where $\theta$ changes over time.
@@ -58,9 +85,9 @@ matrix where $\theta$ changes over time.
                 0 &              0 & 1
   \end{bmatrix}
   \crdfrm{R}{\begin{bmatrix}
-    v_x \\
-    v_y \\
-    \omega
+    v_x(t) \\
+    v_y(t) \\
+    \omega(t)
   \end{bmatrix}} dt \\
   \crdfrm{G}{\begin{bmatrix}
     dx \\
@@ -68,14 +95,16 @@ matrix where $\theta$ changes over time.
     d\theta
   \end{bmatrix}} &=
   \begin{bmatrix}
-    \cos\omega t & -\sin\omega t & 0 \\
-    \sin\omega t &  \cos\omega t & 0 \\
-               0 &             0 & 1
+    \cos(\frac{1}{2}\alpha t^2 + \omega(0) t) &
+      -\sin(\frac{1}{2}\alpha t^2 + \omega(0) t) & 0 \\
+    \sin(\frac{1}{2}\alpha t^2 + \omega(0) t) &
+      \cos(\frac{1}{2}\alpha t^2 + \omega(0) t) & 0 \\
+    0 & 0 & 1
   \end{bmatrix}
   \crdfrm{R}{\begin{bmatrix}
-    v_x \\
-    v_y \\
-    \omega
+    v_x(t) \\
+    v_y(t) \\
+    \omega(t)
   \end{bmatrix}} dt
 \end{align*}
 
